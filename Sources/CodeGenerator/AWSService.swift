@@ -19,7 +19,7 @@ struct AWSService {
     let docJSON: JSON
     let endpointJSON: JSON
     var shapes = [Shape]()
-    var operations: [AWSSDKSwiftCore.Operation] = []
+    var operations: [Operation] = []
     var errorShapeNames = [String]()
     var shapeDoc: [String: [String: String]] = [:]
 
@@ -78,7 +78,7 @@ struct AWSService {
     }
 
     init(fromAPIJSON apiJSON: JSON, docJSON: JSON, endpointJSON: JSON) throws {
-        self.apiJSON = apiJSON
+        self.apiJSON = patch(apiJSON)
         self.docJSON = docJSON
         self.endpointJSON = endpointJSON
         self.shapes = try parseShapes()
@@ -248,8 +248,8 @@ struct AWSService {
         return shapes.sorted{ $0.name < $1.name }
     }
 
-    private func parseOperation(shapes: [Shape]) throws -> ([AWSSDKSwiftCore.Operation], [String])  {
-        var operations: [AWSSDKSwiftCore.Operation] = []
+    private func parseOperation(shapes: [Shape]) throws -> ([Operation], [String])  {
+        var operations: [Operation] = []
         var errorShapeNames: [String] = []
         for (_, json) in apiJSON["operations"].dictionaryValue {
             for json in json["errors"].arrayValue {
@@ -273,7 +273,7 @@ struct AWSService {
                 }
             }
 
-            let operation = AWSSDKSwiftCore.Operation(
+            let operation = Operation(
                 name: json["name"].stringValue,
                 httpMethod: json["http"]["method"].stringValue,
                 path: json["http"]["requestUri"].stringValue,

@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/swift-aws/aws-sdk-swift-core.git",
         "state": {
           "branch": null,
-          "revision": "c62ee0c49909345e437d71028dc63dca8e3b1f9b",
-          "version": "2.0.1"
+          "revision": "254c1e3f85414bf0f529f47cc081be2bd0c12c1c",
+          "version": "3.0.1"
         }
       },
       {
